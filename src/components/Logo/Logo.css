@@ -1,3 +1,5 @@
 .Tilt {
+  position: fixed;
   background: linear-gradient(89deg, RGBA(4, 250, 160, 1), RGBA(167, 65, 236, 1));
+  margin-top: 1em;
 }
