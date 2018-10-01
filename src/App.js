@@ -9,6 +9,7 @@ import Particles from 'react-particles-js';
 import Clarifai from 'clarifai';
 import FaceRecognition from './components/FaceRecognition/FaceRecognition';
 import Signin from './components/Signin/Signin';
+import Register from './components/Register/Register';
 
 const app = new Clarifai.App({
  apiKey: '7e300315a6a048d886a594556189bd96'
@@ -34,7 +35,8 @@ class App extends Component {
         input: '',
         imageUrl: '',
         boxs: [],
-        route: 'signin'
+        route: 'signin',
+        isSignIn: false
       }
 
   }
@@ -74,26 +76,44 @@ class App extends Component {
   }
 
   onRouteChange = (route) => {
+    if (route === 'signout'){
+      this.setState({isSignIn: false})
+    } else if (route === 'home'){
+      this.setState({isSignIn: true})
+    }
     this.setState({route: route})
   }
 
+  // isSignIn = () => {
+  //   return (
+  //     this.state.route === 'home'
+  //     ? true
+  //     : false
+  //   )
+  // }
+
   render() {
+    const { isSignIn, route, imageUrl, boxs } = this.state;
     return (
       <div className="App">
         <Particles  className='particles' params={particlesOptions} />
-        <Navigation onRouteChange={this.onRouteChange} />
+        <Navigation isSignIn={isSignIn} onRouteChange={this.onRouteChange} />
         {
-          this.state.route === 'signin'
-            ? <Signin onRouteChange={this.onRouteChange}/>
-            : <div>
+          route === 'home'
+            ? <div>
                 <Logo />
                 <Rank />
                 <ImageLinkForm
                   onInputChange={this.onInputChange}
                   onSubmit={this.onSubmit}
                 />
-                <FaceRecognition boxs={this.state.boxs} imageUrl={this.state.imageUrl}/>
+                <FaceRecognition boxs={boxs} imageUrl={imageUrl}/>
               </div>
+            : (
+                route === 'signin'
+                ? <Signin onRouteChange={this.onRouteChange}/>
+                : <Register onRouteChange={this.onRouteChange}/>
+              )
         }
       </div>
     );
