@@ -1,8 +1,9 @@
 body {
   margin: 0;
   padding: 0;
-  font-family: "Courier New", Courier, monospace;
+  font-family : 'Ringside Condensed',sans-serif;
   background: linear-gradient(89deg, RGBA(4, 250, 160, 1), RGBA(167, 65, 236, 1));
+  color: #323237;
 }
 
 button {
