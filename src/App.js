@@ -12,7 +12,7 @@ import Signin from './components/Signin/Signin';
 import Register from './components/Register/Register';
 
 const app = new Clarifai.App({
- apiKey: ''
+ apiKey: '7e300315a6a048d886a594556189bd96'
 });
 
 const particlesOptions = {
