@@ -84,14 +84,6 @@ class App extends Component {
     this.setState({route: route})
   }
 
-  // isSignIn = () => {
-  //   return (
-  //     this.state.route === 'home'
-  //     ? true
-  //     : false
-  //   )
-  // }
-
   render() {
     const { isSignIn, route, imageUrl, boxs } = this.state;
     return (
