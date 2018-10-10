@@ -28,7 +28,8 @@ class Signin extends React.Component{
     })
     .then(res => res.json())
     .then(data => {
-      if (data === 'success'){
+      if (data.status === 'success'){
+        this.props.updateUser(data.user);
         this.props.onRouteChange('home');
       } else {
         var content = document.createTextNode('Something Wrong!');
