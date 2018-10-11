@@ -34,7 +34,7 @@ class Regitster extends React.Component {
     })
     .then(res => res.json())
     .then(data => {
-      if (data !== 'unable to register')
+      if (data.id)
         this.props.updateUser(data);
         this.props.onRouteChange('home');
     })

@@ -28,15 +28,11 @@ class Signin extends React.Component{
     })
     .then(res => res.json())
     .then(data => {
-      if (data.status === 'success'){
-        this.props.updateUser(data.user);
+      if (data.id){
+        this.props.updateUser(data);
         this.props.onRouteChange('home');
       } else {
-        var content = document.createTextNode('Something Wrong!');
-        var pTag = document.createElement('p');
-        pTag.style.color = 'red';
-        pTag.appendChild(content);
-        document.getElementsByClassName('measure')[0].appendChild(pTag);
+        document.getElementsByClassName('ErrorMessage')[0].innerHTML = 'Something wrong!';
       }
     })
   }
@@ -79,6 +75,9 @@ class Signin extends React.Component{
             </div>
             <div className="lh-copy mt3">
               <p onClick={() => onRouteChange('register')} className="f6 link dim black db pointer">Register</p>
+            </div>
+            <div>
+              <p className='ErrorMessage' style={{color:'red'}}></p>
             </div>
           </div>
         </main>
