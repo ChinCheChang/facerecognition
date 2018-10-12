@@ -6,14 +6,9 @@ import Rank from './components/Rank/Rank';
 import './App.css';
 import 'tachyons';
 import Particles from 'react-particles-js';
-import Clarifai from 'clarifai';
 import FaceRecognition from './components/FaceRecognition/FaceRecognition';
 import Signin from './components/Signin/Signin';
 import Register from './components/Register/Register';
-
-const app = new Clarifai.App({
- apiKey: '46dc3702be414e7d80932121627f1e21'
-});
 
 const particlesOptions = {
   particles: {
@@ -58,24 +53,30 @@ class App extends Component {
 
   onSubmit = () => {
     this.setState({imageUrl: this.state.input})
-    app.models.
-      predict(Clarifai.FACE_DETECT_MODEL, this.state.input)
-      .then(response => {
-        if (response) {
-          fetch('http://localhost:3001/image', {
-            method: 'PUT',
-            headers: {'Content-Type': 'application/json'},
-            body: JSON.stringify({
-              id: this.state.user.id
-            })
-          })
-          .then(res => res.json())
-          .then(count => this.setState(Object.assign(this.state.user, {entries: count})))
-          .catch(console.log)
-        }
-        this.displayFaceBox(this.calculateFacaLocation(response));
+    fetch('http://localhost:3001/imageurl', {
+      method: 'post',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify({
+        input: this.state.input
       })
-      .catch(err => console.log(err));
+    })
+    .then(res => res.json())
+    .then(response => {
+      if (response) {
+        fetch('http://localhost:3001/image', {
+          method: 'PUT',
+          headers: {'Content-Type': 'application/json'},
+          body: JSON.stringify({
+            id: this.state.user.id
+          })
+        })
+        .then(res => res.json())
+        .then(count => this.setState(Object.assign(this.state.user, {entries: count})))
+        .catch(console.log)
+      }
+      this.displayFaceBox(this.calculateFacaLocation(response));
+    })
+    .catch(err => console.log(err));
   }
 
   calculateFacaLocation = (data) => {
