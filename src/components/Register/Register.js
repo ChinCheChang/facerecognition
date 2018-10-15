@@ -23,7 +23,7 @@ class Regitster extends React.Component {
   }
 
   onSubmit = (event) => {
-    fetch('http://localhost:3001/register', {
+    fetch('https://mysterious-reef-89934.herokuapp.com/register', {
       method: 'POST',
       headers: {'content-type': 'application/json'},
       body: JSON.stringify({
@@ -37,8 +37,9 @@ class Regitster extends React.Component {
       if (data.id){
         this.props.updateUser(data);
         this.props.onRouteChange('home');
-      }        
+      }
     })
+    .catch(err => console.log(err));
   }
 
   render() {

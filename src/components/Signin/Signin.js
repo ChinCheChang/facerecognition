@@ -18,7 +18,7 @@ class Signin extends React.Component{
   }
 
   onSubmitIn = () => {
-    fetch('http://localhost:3001/signin', {
+    fetch('https://mysterious-reef-89934.herokuapp.com/signin', {
       method: 'POST',
       headers: {'content-type': 'application/json'},
       body: JSON.stringify({
@@ -35,6 +35,7 @@ class Signin extends React.Component{
         document.getElementsByClassName('ErrorMessage')[0].innerHTML = 'Something wrong!';
       }
     })
+    .catch(err => console.log(err));
   }
 
   render() {
