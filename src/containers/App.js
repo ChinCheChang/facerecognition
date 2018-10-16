@@ -1,14 +1,21 @@
+/*
+// import module:
+// react-particles-js: For background
+// tachyons: css framework
+*/
 import React, { Component } from 'react';
+import Particles from 'react-particles-js';
+import './App.css';
+import 'tachyons';
+
+//import components
+import FaceRecognition from '../components/FaceRecognition/FaceRecognition';
+import Signin from '../components/Signin/Signin';
+import Register from '../components/Register/Register';
 import Navigation from '../components/Navigation/Navigation';
 import Logo from '../components/Logo/Logo';
 import ImageLinkForm from '../components/ImageLinkForm/ImageLinkForm';
 import Rank from '../components/Rank/Rank';
-import './App.css';
-import 'tachyons';
-import Particles from 'react-particles-js';
-import FaceRecognition from '../components/FaceRecognition/FaceRecognition';
-import Signin from '../components/Signin/Signin';
-import Register from '../components/Register/Register';
 
 const particlesOptions = {
   particles: {
@@ -22,6 +29,12 @@ const particlesOptions = {
   }
 };
 
+/*
+input: change if user input Something
+imageURL: imageURL for show
+boxs: position array of boxs that record where is the face
+route: what page is now 
+*/
 const initailState = {
   input: '',
   imageUrl: '',
@@ -51,6 +64,7 @@ class App extends Component {
     this.setState({input: e.target.value});
   }
 
+  //Query the clarifai API and update the db
   onSubmit = () => {
     this.setState({imageUrl: this.state.input})
     fetch('https://mysterious-reef-89934.herokuapp.com/imageurl', {
@@ -79,6 +93,7 @@ class App extends Component {
     .catch(err => console.log(err));
   }
 
+  //generate the box position array
   calculateFacaLocation = (data) => {
     const clarifaiFace = data.outputs[0].data.regions;
     const image = document.getElementById('inputImage');
@@ -88,6 +103,7 @@ class App extends Component {
     return clarifaiFace.map(value => this.boxsArray(value, width, height));
   }
 
+  //calculate the box position in the image
   boxsArray = (value, width, height) => {
     const boxData = value.region_info.bounding_box;
     return {
