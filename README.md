@@ -4,9 +4,6 @@ This is the front end of facerecognition
 ## What is it?
 Input an image this app would recognize how many face are there in the picture and where are they by using [Clarifai](https://www.clarifai.com/) 
 
-## Demo
-[Demo link](https://facerecognizechinche.herokuapp.com/) 
-
 ## Usage
 1. Signup
 2. trying to put the sample image[https://samples.clarifai.com/face-det.jpg](https://samples.clarifai.com/face-det.jpg) in to the form
